@@ -7,46 +7,53 @@
 ![Tailwind CSS](https://img.shields.io/badge/UI-Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=white)
 ![Deployment](https://img.shields.io/badge/Deploy-Vercel%20%2B%20Render-black)
 
-Rent-A-Ride is a full-stack car rental platform with three main roles:
+Rent-A-Ride is a full-stack car rental platform built with separate User, Vendor, and Admin experiences. It combines vehicle browsing, booking, vendor fleet management, and admin operations into one connected system.
 
-- User
-- Vendor
-- Admin
+## Live Demo
 
-The project includes a Vite + React frontend, an Express + MongoDB backend, role-based authentication, vehicle management, booking flows, vendor approvals, and an admin operations panel.
+- Frontend: [rent-a-ride-two.vercel.app](https://rent-a-ride-two.vercel.app)
+- Backend health: [rent-a-ride-zq00.onrender.com/health](https://rent-a-ride-zq00.onrender.com/health)
 
 ## Feature Highlights
 
-- Multi-role platform with separate User, Vendor, and Admin flows
-- Dedicated admin panel with live dashboard, booking control, and vendor approval queue
-- Vehicle discovery with search, filter, sort, and location-based browsing
-- Vendor vehicle management with add, edit, delete, and booking updates
-- Booking lifecycle management across user, vendor, and admin panels
+- Multi-role platform with User, Vendor, and Admin flows
+- Dedicated admin panel with live summary, bookings control, and vendor approval queue
+- Vehicle search, filter, sort, and location-based browsing
+- Vendor vehicle add, edit, delete, and booking updates
+- Booking lifecycle connected across all roles
 - Firebase Google login support
-- Razorpay payment integration flow
+- Razorpay payment flow integration
 - Cloudinary image upload support
-- Production-ready split deployment setup for frontend and backend
+- Production-ready deployment setup for Vercel + Render
+
+## Why This Project Stands Out
+
+- It goes beyond a basic CRUD app by supporting three connected product roles.
+- It covers real full-stack concerns like auth, uploads, payments, dashboards, and deployment.
+- The user, vendor, and admin modules all operate on the same booking and vehicle data flow.
+- It includes both operational tools and customer-facing UX, which makes it a stronger portfolio project.
+- The codebase is already structured for online deployment with env templates, health checks, and split hosting.
 
 ## Modules
 
 ### User
 - Sign up and sign in with email/password
-- Google login support through Firebase
+- Google login through Firebase
 - Browse vehicles
 - Search by district and location
-- Filter and sort vehicle listings
+- Filter and sort vehicles
 - View vehicle details
-- Book rides and complete checkout flow
-- View and manage personal orders
+- Book rides and complete checkout
+- View personal orders
 - Edit profile details
 
 ### Vendor
 - Separate vendor sign up and sign in
 - Add vehicles
 - Edit and delete vendor vehicles
-- View bookings
-- Manage booking status
-- Monitor available vehicles and requests from vendor dashboard
+- View vendor bookings
+- Update booking status
+- Monitor vehicles and booking activity from vendor dashboard
 
 ### Admin
 - Separate admin sign in page
@@ -57,6 +64,23 @@ The project includes a Vite + React frontend, an Express + MongoDB backend, role
 - Add and manage vehicles
 - Review vendor vehicle requests
 - View and update booking statuses
+
+## Role-Based Feature Table
+
+| Capability | User | Vendor | Admin |
+| --- | --- | --- | --- |
+| Sign up / Sign in | Yes | Yes | Yes |
+| Google login | Yes | No | No |
+| Browse vehicles | Yes | Limited dashboard view | Full fleet view |
+| Book vehicle | Yes | No | No |
+| View own orders | Yes | No | No |
+| Manage booking status | No | Yes | Yes |
+| Add vehicle | No | Yes | Yes |
+| Edit/Delete vehicles | No | Own vehicles | Admin fleet |
+| View all platform vehicles | No | Own listings | Yes |
+| Review vendor requests | No | No | Yes |
+| View all users/vendors | No | No | Yes |
+| Access admin dashboard | No | No | Yes |
 
 ## Tech Stack
 
@@ -121,53 +145,39 @@ flowchart LR
     B --> E["Nodemailer"]
 ```
 
-## Key Features
+## Installation
 
-- Role-based access for user, vendor, and admin
-- JWT access token and refresh token support
-- Dedicated admin sign-in flow
-- Protected routes for all secure areas
-- Vendor approval workflow
-- Admin dashboard with live production data
-- Booking status management
-- Cloudinary image upload integration
-- Razorpay payment flow support
-- Firebase Google authentication support
-- Production-ready deployment setup for Render + Vercel
+### 1. Clone the repository
 
-## Local Development
+```bash
+git clone https://github.com/kushagra751/Rent-A-Ride.git
+cd Rent-a-Ride
+```
 
-## Prerequisites
-
-- Node.js
-- npm
-- MongoDB local instance or MongoDB Atlas
-- Cloudinary account for image upload
-- Firebase project for Google login
-- Razorpay account for payment integration
-
-## Install Dependencies
-
-### Backend
-
-From the project root:
+### 2. Install backend dependencies
 
 ```bash
 npm install
 ```
 
-### Frontend
+### 3. Install frontend dependencies
 
 ```bash
 cd client
 npm install
+cd ..
 ```
 
-## Run Locally
+### 4. Configure environment variables
 
-### Start backend
+Use these templates:
 
-From project root:
+```bash
+.env.example
+client/.env.example
+```
+
+### 5. Start backend
 
 ```bash
 npm run dev
@@ -179,9 +189,9 @@ Backend runs on:
 http://localhost:3001
 ```
 
-### Start frontend
+### 6. Start frontend
 
-In a separate terminal:
+Open a new terminal:
 
 ```bash
 cd client
@@ -196,14 +206,7 @@ http://localhost:5173
 
 ## Environment Variables
 
-Use:
-
-- [.env.example](./.env.example)
-- [client/.env.example](./client/.env.example)
-
-### Backend variables
-
-Typical backend variables:
+Backend example keys:
 
 ```env
 NODE_ENV=
@@ -223,9 +226,7 @@ RAZORPAY_SECRET=
 COOKIE_DOMAIN=
 ```
 
-### Frontend variables
-
-Typical frontend variables:
+Frontend example keys:
 
 ```env
 VITE_PRODUCTION_BACKEND_URL=
@@ -238,9 +239,11 @@ VITE_FIREBASE_MESSAGING_SENDER_ID=
 VITE_FIREBASE_APP_ID=
 ```
 
-## Default Demo Logins
+Full deployment notes:
 
-These are available through the current local/deployed bootstrap flow if seeded:
+- [DEPLOYMENT.md](./DEPLOYMENT.md)
+
+## Default Demo Logins
 
 ### Admin
 - Email: `admin@demo.com`
@@ -250,7 +253,7 @@ These are available through the current local/deployed bootstrap flow if seeded:
 - Email: `vendor@demo.com`
 - Password: `vendor123`
 
-Note: in production, you should replace demo accounts and rotate all secrets before final use.
+Note: for final production use, replace demo accounts and rotate secrets.
 
 ## Important Routes
 
@@ -309,11 +312,7 @@ Note: in production, you should replace demo accounts and rotate all secrets bef
 
 ## Deployment
 
-Deployment guide:
-
-- [DEPLOYMENT.md](./DEPLOYMENT.md)
-
-Recommended deployment split:
+Recommended setup:
 
 - Frontend: Vercel
 - Backend: Render
@@ -321,30 +320,27 @@ Recommended deployment split:
 
 ## Screenshots
 
-Add your best project screenshots here to make the repository look stronger for portfolio and review purposes.
+### User Side
 
-Suggested sections:
+![User Home](https://github.com/user-attachments/assets/4b769f7d-5d2c-43a7-8283-07fa8402de92)
+![User Vehicles](https://github.com/user-attachments/assets/5d6e0160-5f1d-4e67-a64e-1e18fb17a590)
+![User Vehicle Details](https://github.com/user-attachments/assets/ac6b0f33-344e-4009-a979-23ea7dc3a5bb)
+![User Checkout](https://github.com/user-attachments/assets/40e2dc7d-0694-483d-bf4a-badac9c4d5f3)
+![User Orders](https://github.com/user-attachments/assets/7ce5d1fa-c51f-414b-92da-cc04ac7c3402)
+![User Profile](https://github.com/user-attachments/assets/0e87009c-832d-4c5e-be7c-ecd4df341070)
+![User Flow](https://github.com/user-attachments/assets/baf15b5d-2e04-4410-803b-527dddda1aab)
 
-- User home page
-- Vehicle listing and filters
-- Vehicle details page
-- Checkout / payment page
-- User orders page
-- Vendor dashboard
-- Vendor vehicles page
-- Admin dashboard
-- Admin bookings page
-- Admin vendor request page
+### Admin Side
 
-Example markdown:
+![Admin Dashboard](https://github.com/user-attachments/assets/c08e3bf0-2776-4236-80b6-6714d52ec8d7)
+![Admin Vehicles](https://github.com/user-attachments/assets/ce6dada8-41b7-4aec-b86a-4a359f6d339f)
+![Admin Requests](https://github.com/user-attachments/assets/467503a4-ab9a-4396-bc57-1abff5fe8106)
+![Admin Orders](https://github.com/user-attachments/assets/8e1d2948-6316-420b-8336-30ec7c752b04)
 
-```md
-![User Home](./client/public/screenshots/user-home.png)
-![Vehicles](./client/public/screenshots/vehicles.png)
-![Admin Dashboard](./client/public/screenshots/admin-dashboard.png)
-```
+### Vendor Side
 
-If you store screenshots in another folder, update the paths accordingly.
+![Vendor Dashboard](https://github.com/user-attachments/assets/59a9a9c7-5dc1-4f61-8d15-43266579386c)
+![Vendor Vehicles](https://github.com/user-attachments/assets/4e9d8f66-0984-4163-8dea-f9023db56ce0)
 
 ## Build and Checks
 
@@ -386,14 +382,12 @@ It reports whether MongoDB is connected.
 
 ## Current Project Status
 
-This repository currently includes:
-
-- user side working
-- vendor side working
-- admin side working
-- separate admin login page
-- deployed-data fixes for admin/vendor/user flows
-- improved admin UI for dashboard and add vehicle flow
+- User side working
+- Vendor side working
+- Admin side working
+- Separate admin login page
+- Deployed-data fixes across user, vendor, and admin flows
+- Improved admin UI for dashboard and add vehicle flow
 
 ## Notes
 
