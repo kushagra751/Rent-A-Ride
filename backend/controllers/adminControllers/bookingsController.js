@@ -16,6 +16,28 @@ export const allBookings = async (req, res, next) => {
       {
         $unwind: {
           path: "$vehicleDetails",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "userId",
+          foreignField: "_id",
+          as: "userDetails",
+        },
+      },
+      {
+        $addFields: {
+          userDetails: {
+            $arrayElemAt: ["$userDetails", 0],
+          },
+        },
+      },
+      {
+        $sort: {
+          createdAt: -1,
+          pickupDate: -1,
         },
       },
     ]);
@@ -41,14 +63,35 @@ export const changeStatus = async (req, res, next) => {
     }
     const { id, status } = req.body;
 
-    const statusChanged = await Booking.findByIdAndUpdate(id, {
-      status: status,
-    });
+    const statusChanged = await Booking.findByIdAndUpdate(
+      id,
+      {
+        status,
+      },
+      { new: true }
+    );
 
     if (!statusChanged) {
       next(errorHandler(404, "status not changed or wrong id"));
       return;
     }
+
+    const vehicleStatusMap = {
+      canceled: false,
+      notBooked: false,
+      tripCompleted: false,
+      booked: true,
+      onTrip: true,
+      notPicked: true,
+      overDue: true,
+    };
+
+    if (statusChanged.vehicleId) {
+      await Vehicle.findByIdAndUpdate(statusChanged.vehicleId, {
+        isBooked: vehicleStatusMap[status] ?? true,
+      });
+    }
+
     res.status(200).json({ message: "status changed" });
   } catch (error) {
     console.log(error);

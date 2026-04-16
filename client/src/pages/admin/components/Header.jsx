@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const Header = ({category,title}) => {
+const Header = ({category,title, showAddButton = false}) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -25,9 +25,11 @@ const Header = ({category,title}) => {
         {title}
       </p>
       </div>
-      <button className='bg-blue-600 rounded-lg '>
-        <div className='text-white px-5 py-2 font-bold ' onClick={handleAddVehicle}>Add+</div>
-      </button>
+      {showAddButton ? (
+        <button className='bg-blue-600 rounded-lg '>
+          <div className='text-white px-5 py-2 font-bold ' onClick={handleAddVehicle}>Add+</div>
+        </button>
+      ) : null}
       
         
     </div>
@@ -36,6 +38,7 @@ const Header = ({category,title}) => {
 Header.propTypes = {
   category:PropTypes.string,
   title: PropTypes.string.isRequired,
+  showAddButton: PropTypes.bool,
 };
 
 export default Header

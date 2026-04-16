@@ -42,17 +42,17 @@ function AdminDashNew() {
 
           <div className="main_section mx-8  ">
             <Routes>
-              <Route path="/" element={<AdminHomeMain/>}/>
-              <Route path="/adminHome" element={<AdminHomeMain />} />
-              <Route path="/allProduct" element={<AllVehicles />} />
-              <Route path="/allUsers" element={<AllUsers />} />
-              <Route path="/allVendors" element={<AllVendors />} />
-              <Route path="/calender" element={<Calender />} />
-              <Route path="/colorPicker" element={<ColorPicker />} />
-              <Route path="/customers" element={<Customers />} />
-              <Route path="/editor" element={<Editor />} />
-              <Route path="/vendorVehicleRequests" element={<VenderVehicleRequests />} />
-              <Route path="/orders" element={<Bookings />} />
+              <Route index element={<AdminHomeMain/>}/>
+              <Route path="adminHome" element={<AdminHomeMain />} />
+              <Route path="allProduct" element={<AllVehicles />} />
+              <Route path="allUsers" element={<AllUsers />} />
+              <Route path="allVendors" element={<AllVendors />} />
+              <Route path="calender" element={<Calender />} />
+              <Route path="colorPicker" element={<ColorPicker />} />
+              <Route path="customers" element={<Customers />} />
+              <Route path="editor" element={<Editor />} />
+              <Route path="vendorVehicleRequests" element={<VenderVehicleRequests />} />
+              <Route path="orders" element={<Bookings />} />
 
             </Routes>
           </div>

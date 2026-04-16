@@ -16,6 +16,11 @@ import {
 } from "../../../redux/adminSlices/adminDashboardSlice/StatusSlice";
 import { getApiUrl } from "../../../utils/api";
 
+const isVisibleVehicle = (vehicle) =>
+  vehicle?.isAdminApproved &&
+  vehicle?.isDeleted !== true &&
+  vehicle?.isDeleted !== "true";
+
 function AllVehicles() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -121,12 +126,10 @@ function AllVehicles() {
   ];
 
   const rows = allVehicles
-    .filter(
-      (vehicle) => vehicle.isDeleted === "false" && vehicle.isAdminApproved
-    )
+    .filter(isVisibleVehicle)
     .map((vehicle) => ({
       id: vehicle._id,
-      image: vehicle.image[0],
+      image: vehicle.image?.[0] || "/car-placeholder.svg",
       registeration_number: vehicle.registeration_number,
       company: vehicle.company,
       name: vehicle.name,
@@ -162,7 +165,7 @@ function AllVehicles() {
         
         
       <div className="max-w-[1000px]  d-flex   justify-end text-start items-end p-10">
-        <Header title="AllVehicles" />
+        <Header title="All Vehicles" showAddButton />
         <Box sx={{ height: "100%", width: "100%" }}>
           <DataGrid
             rows={rows}

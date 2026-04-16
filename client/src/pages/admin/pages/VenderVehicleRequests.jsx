@@ -10,8 +10,8 @@ import { useEffect } from "react";
 import { setUpdateRequestTable, setVenodrVehilces, setadminVenodrRequest } from "../../../redux/vendor/vendorDashboardSlice";
 import { getApiUrl } from "../../../utils/api";
 
-
-
+const isVisibleRequest = (vehicle) =>
+  vehicle?.isDeleted !== true && vehicle?.isDeleted !== "true";
 
 const VenderVehicleRequests = () => {
   const { vendorVehicleApproved, vendorVehilces ,adminVenodrRequest } = useSelector(
@@ -163,10 +163,10 @@ const VenderVehicleRequests = () => {
   const rows =
   adminVenodrRequest && 
     adminVenodrRequest
-      .filter((vehicle) => vehicle.isDeleted === "false")
+      .filter(isVisibleRequest)
       .map((vehicle) => ({
         id: vehicle._id,
-        image: vehicle.image[0],
+        image: vehicle.image?.[0] || "/car-placeholder.svg",
         registeration_number: vehicle.registeration_number,
         company: vehicle.company,
         name: vehicle.name,

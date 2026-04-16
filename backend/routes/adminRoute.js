@@ -2,7 +2,7 @@ import express from "express"
 import { adminAuth ,adminProfiile } from "../controllers/adminControllers/adminController.js"
 import { signIn } from "../controllers/authController.js"
 import { signOut  } from "../controllers/userControllers/userController.js"
-import { addProduct, deleteVehicle, editVehicle, showUsers, showVendors, showVehicles } from "../controllers/adminControllers/dashboardController.js"
+import { addProduct, deleteVehicle, editVehicle, getAdminSummary, showUsers, showVendors, showVehicles } from "../controllers/adminControllers/dashboardController.js"
 import { multerUploads } from "../utils/multer.js"
 import { insertDummyData } from "../controllers/adminControllers/masterCollectionController.js"
 import { getCarModelData } from "../controllers/adminControllers/masterCollectionController.js"
@@ -24,6 +24,7 @@ router.post('/addProduct',multerUploads,addProduct)
 router.get('/showVehicles',showVehicles)
 router.get('/showUsers',showUsers)
 router.get('/showVendors',showVendors)
+router.get('/summary',getAdminSummary)
 router.delete('/deleteVehicle/:id',deleteVehicle)
 router.put('/editVehicle/:id',editVehicle)
 router.get('/dummyData',insertDummyData)

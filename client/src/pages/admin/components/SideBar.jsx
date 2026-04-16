@@ -75,7 +75,9 @@ const SideBar = () => {
                     }
                   >
                     {link.icon}
-                    <span className="capitalize text-gray-600">{link.name}</span>
+                    <span className="capitalize text-gray-600">
+                      {link.label || link.name}
+                    </span>
                   </NavLink>
                 ))}
               </div>

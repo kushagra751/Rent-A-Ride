@@ -2,9 +2,14 @@ import { errorHandler } from "../../utils/error.js";
 import vehicle from "../../models/vehicleModel.js";
 import Vehicle from "../../models/vehicleModel.js";
 import User from "../../models/userModel.js";
+import Booking from "../../models/BookingModel.js";
 
 import { uploader } from "../../utils/cloudinaryConfig.js";
 import { dataUri } from "../../utils/multer.js";
+
+const notDeletedQuery = {
+  isDeleted: { $nin: [true, "true"] },
+};
 
 //admin addVehicle
 export const addProduct = async (req, res, next) => {
@@ -112,7 +117,7 @@ export const addProduct = async (req, res, next) => {
 //show all vehicles to admin
 export const showVehicles = async (req, res, next) => {
   try {
-    const vehicles = await vehicle.find();
+    const vehicles = await vehicle.find().sort({ created_at: -1, createdAt: -1 });
 
     if (!vehicles) {
       return next(errorHandler(404, "no vehicles found"));
@@ -127,7 +132,9 @@ export const showVehicles = async (req, res, next) => {
 
 export const showUsers = async (req, res, next) => {
   try {
-    const users = await User.find({ isUser: true }).select("-password");
+    const users = await User.find({ isUser: true })
+      .select("-password")
+      .sort({ createdAt: -1 });
     res.status(200).json(users);
   } catch (error) {
     console.log(error);
@@ -137,7 +144,9 @@ export const showUsers = async (req, res, next) => {
 
 export const showVendors = async (req, res, next) => {
   try {
-    const vendors = await User.find({ isVendor: true }).select("-password");
+    const vendors = await User.find({ isVendor: true })
+      .select("-password")
+      .sort({ createdAt: -1 });
     res.status(200).json(vendors);
   } catch (error) {
     console.log(error);
@@ -250,5 +259,107 @@ export const editVehicle = async (req, res, next) => {
   } catch (error) {
     console.log(error);
     next(errorHandler(500, "something went wrong"));
+  }
+};
+
+export const getAdminSummary = async (req, res, next) => {
+  try {
+    const activeVehiclesQuery = {
+      ...notDeletedQuery,
+      isAdminApproved: true,
+    };
+
+    const pendingVendorRequestsQuery = {
+      ...notDeletedQuery,
+      isAdminApproved: false,
+      isRejected: { $ne: true },
+      isAdminAdded: false,
+    };
+
+    const [
+      totalUsers,
+      totalVendors,
+      activeVehicles,
+      totalBookings,
+      pendingVendorRequests,
+      bookedVehicles,
+      revenueStats,
+      recentBookings,
+      recentVendorRequests,
+    ] = await Promise.all([
+      User.countDocuments({ isUser: true }),
+      User.countDocuments({ isVendor: true }),
+      Vehicle.countDocuments(activeVehiclesQuery),
+      Booking.countDocuments(),
+      Vehicle.countDocuments(pendingVendorRequestsQuery),
+      Vehicle.countDocuments({
+        ...activeVehiclesQuery,
+        isBooked: true,
+      }),
+      Booking.aggregate([
+        {
+          $match: {
+            status: { $ne: "canceled" },
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            totalRevenue: { $sum: "$totalPrice" },
+          },
+        },
+      ]),
+      Booking.aggregate([
+        {
+          $lookup: {
+            from: "vehicles",
+            localField: "vehicleId",
+            foreignField: "_id",
+            as: "vehicleDetails",
+          },
+        },
+        {
+          $lookup: {
+            from: "users",
+            localField: "userId",
+            foreignField: "_id",
+            as: "userDetails",
+          },
+        },
+        {
+          $addFields: {
+            vehicleDetails: { $arrayElemAt: ["$vehicleDetails", 0] },
+            userDetails: { $arrayElemAt: ["$userDetails", 0] },
+          },
+        },
+        {
+          $sort: { createdAt: -1, pickupDate: -1 },
+        },
+        {
+          $limit: 6,
+        },
+      ]),
+      Vehicle.find(pendingVendorRequestsQuery)
+        .sort({ created_at: -1, createdAt: -1 })
+        .limit(6)
+        .lean(),
+    ]);
+
+    res.status(200).json({
+      stats: {
+        totalUsers,
+        totalVendors,
+        activeVehicles,
+        totalBookings,
+        pendingVendorRequests,
+        bookedVehicles,
+        totalRevenue: revenueStats?.[0]?.totalRevenue || 0,
+      },
+      recentBookings: recentBookings || [],
+      recentVendorRequests: recentVendorRequests || [],
+    });
+  } catch (error) {
+    console.log(error);
+    next(errorHandler(500, "could not fetch admin summary"));
   }
 };

@@ -8,9 +8,15 @@ export const fetchVendorVehilceRequests = async (req, res, next) => {
       {
         $match: {
           isAdminApproved: false,
-          isDeleted: "false",
+          isDeleted: { $nin: [true, "true"] },
           isRejected: false,
           isAdminAdded: false,
+        },
+      },
+      {
+        $sort: {
+          created_at: -1,
+          createdAt: -1,
         },
       },
     ]);
