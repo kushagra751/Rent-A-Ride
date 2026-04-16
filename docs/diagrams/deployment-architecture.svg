@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="420" viewBox="0 0 1300 420">
+  <defs>
+    <style>
+      .title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+      .label { font: 600 16px Arial, sans-serif; fill: #0f172a; }
+      .box { fill: #fff; stroke: #cbd5e1; stroke-width: 2; rx: 16; }
+      .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; rx: 16; }
+      .green { fill: #ecfdf5; stroke: #34d399; stroke-width: 2; rx: 16; }
+      .line { stroke: #475569; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <text x="40" y="45" class="title">Deployment Architecture (Vercel + Render)</text>
+  <rect x="60" y="160" width="180" height="80" class="box"/><text x="118" y="208" class="label">Browser</text>
+  <rect x="320" y="160" width="220" height="80" class="blue"/><text x="383" y="208" class="label">Vercel Frontend</text>
+  <rect x="620" y="160" width="220" height="80" class="green"/><text x="687" y="208" class="label">Render Backend</text>
+  <rect x="940" y="40" width="220" height="70" class="box"/><text x="1008" y="82" class="label">MongoDB Atlas</text>
+  <rect x="940" y="130" width="220" height="70" class="box"/><text x="1018" y="172" class="label">Cloudinary</text>
+  <rect x="940" y="220" width="220" height="70" class="box"/><text x="1040" y="262" class="label">Firebase</text>
+  <rect x="940" y="310" width="220" height="70" class="box"/><text x="1040" y="352" class="label">Razorpay</text>
+  <path d="M 240 200 L 320 200" class="line"/>
+  <path d="M 540 200 L 620 200" class="line"/>
+  <path d="M 840 190 L 940 75" class="line"/>
+  <path d="M 840 200 L 940 165" class="line"/>
+  <path d="M 840 210 L 940 255" class="line"/>
+  <path d="M 840 220 L 940 345" class="line"/>
+</svg>

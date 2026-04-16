@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="560" viewBox="0 0 980 560">
+  <defs>
+    <style>
+      .title { font: 700 24px Arial, sans-serif; fill: #0f172a; }
+      .head { font: 700 15px Arial, sans-serif; fill: #0f172a; }
+      .text { font: 500 12px Arial, sans-serif; fill: #334155; }
+      .table { fill: #fff; stroke: #cbd5e1; stroke-width: 2; rx: 18; ry: 18; }
+      .header { fill: #eff6ff; }
+      .line { stroke: #64748b; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .rel { font: 600 12px Arial, sans-serif; fill: #475569; }
+    </style>
+  </defs>
+
+  <text x="30" y="38" class="title">Database ER Diagram</text>
+
+  <g transform="translate(40,80)">
+    <rect width="220" height="150" class="table"/>
+    <rect width="220" height="40" class="table header"/>
+    <text x="88" y="25" class="head">USER</text>
+    <text x="18" y="62" class="text">email</text>
+    <text x="18" y="84" class="text">username</text>
+    <text x="18" y="106" class="text">isUser</text>
+    <text x="18" y="128" class="text">isVendor</text>
+    <text x="18" y="150" class="text">isAdmin</text>
+  </g>
+
+  <g transform="translate(380,65)">
+    <rect width="230" height="190" class="table"/>
+    <rect width="230" height="40" class="table header"/>
+    <text x="76" y="25" class="head">VEHICLE</text>
+    <text x="18" y="62" class="text">registeration_number</text>
+    <text x="18" y="84" class="text">company</text>
+    <text x="18" y="106" class="text">model</text>
+    <text x="18" y="128" class="text">district</text>
+    <text x="18" y="150" class="text">location</text>
+    <text x="18" y="172" class="text">isBooked / isAdminApproved</text>
+  </g>
+
+  <g transform="translate(700,80)">
+    <rect width="220" height="170" class="table"/>
+    <rect width="220" height="40" class="table header"/>
+    <text x="72" y="25" class="head">BOOKING</text>
+    <text x="18" y="62" class="text">userId</text>
+    <text x="18" y="84" class="text">vehicleId</text>
+    <text x="18" y="106" class="text">pickupDate</text>
+    <text x="18" y="128" class="text">dropOffDate</text>
+    <text x="18" y="150" class="text">totalPrice / status</text>
+  </g>
+
+  <g transform="translate(380,325)">
+    <rect width="230" height="145" class="table"/>
+    <rect width="230" height="40" class="table header"/>
+    <text x="56" y="25" class="head">MASTERDATA</text>
+    <text x="18" y="62" class="text">district</text>
+    <text x="18" y="84" class="text">location</text>
+    <text x="18" y="106" class="text">type</text>
+    <text x="18" y="128" class="text">model / brand</text>
+  </g>
+
+  <path d="M 260 155 C 315 155, 325 160, 380 160" class="line"/>
+  <text x="300" y="145" class="rel">adds</text>
+
+  <path d="M 610 160 C 655 160, 660 165, 700 165" class="line"/>
+  <text x="640" y="148" class="rel">has</text>
+
+  <path d="M 495 255 C 495 290, 495 295, 495 325" class="line"/>
+  <text x="508" y="295" class="rel">maps</text>
+</svg>

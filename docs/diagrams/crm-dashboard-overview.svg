@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="560" viewBox="0 0 1280 560">
+  <defs>
+    <style>
+      .title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+      .label { font: 600 16px Arial, sans-serif; fill: #0f172a; }
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 16; }
+      .center { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; rx: 20; }
+      .line { stroke: #475569; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <text x="40" y="45" class="title">CRM Dashboard Overview</text>
+  <rect x="470" y="210" width="300" height="90" class="center"/><text x="545" y="262" class="label">Admin Dashboard</text>
+  <rect x="110" y="90" width="220" height="80" class="box"/><text x="195" y="138" class="label">Users</text>
+  <rect x="370" y="90" width="220" height="80" class="box"/><text x="447" y="138" class="label">Vendors</text>
+  <rect x="650" y="90" width="220" height="80" class="box"/><text x="732" y="138" class="label">Vehicles</text>
+  <rect x="930" y="90" width="220" height="80" class="box"/><text x="1012" y="138" class="label">Bookings</text>
+  <rect x="250" y="380" width="250" height="80" class="box"/><text x="302" y="428" class="label">Vendor Requests</text>
+  <rect x="760" y="380" width="250" height="80" class="box"/><text x="815" y="428" class="label">Revenue / Stats</text>
+  <path d="M 530 210 L 260 170" class="line"/>
+  <path d="M 590 210 L 480 170" class="line"/>
+  <path d="M 650 210 L 760 170" class="line"/>
+  <path d="M 710 210 L 1040 170" class="line"/>
+  <path d="M 560 300 L 390 380" class="line"/>
+  <path d="M 680 300 L 885 380" class="line"/>
+</svg>

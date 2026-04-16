@@ -74,67 +74,42 @@ flowchart TD
 ```mermaid
 erDiagram
     USER ||--o{ BOOKING : places
-    VEHICLE ||--o{ BOOKING : assigned_to
+    VEHICLE ||--o{ BOOKING : has
     USER ||--o{ VEHICLE : adds
-    MASTERDATA ||--o{ VEHICLE : supports
+    MASTERDATA ||--o{ VEHICLE : maps
 
     USER {
-        string username
         string email
-        string password
-        string phoneNumber
-        string adress
-        string profilePicture
+        string username
         boolean isUser
         boolean isVendor
         boolean isAdmin
-        string refreshToken
     }
 
     VEHICLE {
         string registeration_number
         string company
-        string name
         string model
-        number year_made
-        string fuel_type
-        number seats
-        string transmition
-        array image
-        number price
-        string base_package
-        string car_type
         string district
         string location
         boolean isBooked
         boolean isAdminApproved
-        boolean isAdminAdded
-        string addedBy
-        string isDeleted
     }
 
     BOOKING {
-        objectId vehicleId
         objectId userId
+        objectId vehicleId
         date pickupDate
         date dropOffDate
-        string pickUpLocation
-        string dropOffLocation
         number totalPrice
-        string razorpayOrderId
-        string razorpayPaymentId
         string status
-        date createdAt
     }
 
     MASTERDATA {
-        string id
         string district
         string location
         string type
-        string model
-        string variant
-        string brand
+        string model / brand
     }
 ```
 
@@ -142,19 +117,18 @@ erDiagram
 
 ```mermaid
 flowchart TD
-    A["User submits login form"] --> B["Frontend sends credentials to API"]
-    B --> C["Backend verifies user in MongoDB"]
-    C --> D{"Valid credentials?"}
-    D -- No --> E["Return auth error"]
-    D -- Yes --> F["Generate access token"]
-    F --> G["Generate refresh token"]
-    G --> H["Store refresh token in DB"]
-    H --> I["Return user payload + tokens"]
-    I --> J["Redux stores current user"]
-    J --> K{"Role check"}
-    K -- User --> L["Redirect to user pages"]
-    K -- Vendor --> M["Redirect to vendor dashboard"]
-    K -- Admin --> N["Redirect to admin dashboard"]
+    A([Login Form]) --> B([Frontend API Request])
+    B --> C([Verify User in MongoDB])
+    C --> D{Valid?}
+    D -- No --> E([Auth Error])
+    D -- Yes --> F([Create Access + Refresh Tokens])
+    F --> G([Store Refresh Token])
+    G --> H([Return User Payload])
+    H --> I([Save User in Redux])
+    I --> J{Role}
+    J -- User --> K([User Pages])
+    J -- Vendor --> L([Vendor Dashboard])
+    J -- Admin --> M([Admin Dashboard])
 ```
 
 ## 6. CRM Dashboard Overview

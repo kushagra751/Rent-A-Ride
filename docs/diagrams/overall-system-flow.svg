@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820">
+  <defs>
+    <style>
+      .title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+      .label { font: 600 16px Arial, sans-serif; fill: #0f172a; }
+      .box { fill: #fff; stroke: #cbd5e1; stroke-width: 2; rx: 16; }
+      .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; rx: 16; }
+      .green { fill: #ecfdf5; stroke: #34d399; stroke-width: 2; rx: 16; }
+      .amber { fill: #fffbeb; stroke: #f59e0b; stroke-width: 2; rx: 16; }
+      .rose { fill: #fff1f2; stroke: #fb7185; stroke-width: 2; rx: 16; }
+      .line { stroke: #475569; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <text x="40" y="45" class="title">Overall System Flowchart</text>
+  <rect x="540" y="80" width="280" height="70" class="blue"/><text x="635" y="123" class="label">Open Website</text>
+  <rect x="520" y="190" width="320" height="80" class="box"/><text x="595" y="238" class="label">Select Role / Action</text>
+
+  <rect x="120" y="340" width="280" height="80" class="green"/><text x="215" y="388" class="label">User Flow</text>
+  <rect x="560" y="340" width="280" height="80" class="amber"/><text x="645" y="388" class="label">Vendor Flow</text>
+  <rect x="1000" y="340" width="280" height="80" class="rose"/><text x="1095" y="388" class="label">Admin Flow</text>
+
+  <rect x="80" y="500" width="360" height="70" class="box"/><text x="140" y="542" class="label">Browse Vehicles → Search / Filter → Book</text>
+  <rect x="80" y="620" width="360" height="70" class="box"/><text x="150" y="662" class="label">Checkout → Payment → Orders</text>
+
+  <rect x="520" y="500" width="360" height="70" class="box"/><text x="575" y="542" class="label">Vendor Dashboard → Manage Vehicles</text>
+  <rect x="520" y="620" width="360" height="70" class="box"/><text x="585" y="662" class="label">View Bookings → Update Status</text>
+
+  <rect x="960" y="500" width="360" height="70" class="box"/><text x="1015" y="542" class="label">Admin Dashboard → Manage Data</text>
+  <rect x="960" y="620" width="360" height="70" class="box"/><text x="1010" y="662" class="label">Review Requests → Control Bookings</text>
+
+  <path d="M 680 150 L 680 190" class="line"/>
+  <path d="M 520 230 L 260 340" class="line"/>
+  <path d="M 680 270 L 700 340" class="line"/>
+  <path d="M 840 230 L 1140 340" class="line"/>
+  <path d="M 260 420 L 260 500" class="line"/>
+  <path d="M 260 570 L 260 620" class="line"/>
+  <path d="M 700 420 L 700 500" class="line"/>
+  <path d="M 700 570 L 700 620" class="line"/>
+  <path d="M 1140 420 L 1140 500" class="line"/>
+  <path d="M 1140 570 L 1140 620" class="line"/>
+</svg>

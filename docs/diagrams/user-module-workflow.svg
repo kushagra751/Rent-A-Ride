@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="360" viewBox="0 0 1300 360">
+  <defs>
+    <style>
+      .title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+      .label { font: 600 15px Arial, sans-serif; fill: #0f172a; }
+      .box { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; rx: 14; }
+      .line { stroke: #475569; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <text x="40" y="45" class="title">User Module Workflow</text>
+  <rect x="30" y="130" width="160" height="70" class="box"/><text x="62" y="172" class="label">Signup / Signin</text>
+  <rect x="220" y="130" width="150" height="70" class="box"/><text x="262" y="172" class="label">Home Page</text>
+  <rect x="400" y="130" width="160" height="70" class="box"/><text x="430" y="172" class="label">Vehicle Listing</text>
+  <rect x="590" y="130" width="180" height="70" class="box"/><text x="620" y="172" class="label">Search / Filter</text>
+  <rect x="800" y="130" width="170" height="70" class="box"/><text x="823" y="172" class="label">Vehicle Details</text>
+  <rect x="1000" y="130" width="120" height="70" class="box"/><text x="1027" y="172" class="label">Book Ride</text>
+  <rect x="1150" y="70" width="120" height="70" class="box"/><text x="1168" y="112" class="label">Checkout</text>
+  <rect x="1150" y="200" width="120" height="70" class="box"/><text x="1182" y="242" class="label">Orders</text>
+  <path d="M 190 165 L 220 165" class="line"/>
+  <path d="M 370 165 L 400 165" class="line"/>
+  <path d="M 560 165 L 590 165" class="line"/>
+  <path d="M 770 165 L 800 165" class="line"/>
+  <path d="M 970 165 L 1000 165" class="line"/>
+  <path d="M 1120 165 L 1150 105" class="line"/>
+  <path d="M 1210 140 L 1210 200" class="line"/>
+</svg>

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
+  <defs>
+    <style>
+      .title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+      .label { font: 600 18px Arial, sans-serif; fill: #0f172a; }
+      .small { font: 500 15px Arial, sans-serif; fill: #334155; }
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 18; }
+      .accent { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; rx: 18; }
+      .service { fill: #f8fafc; stroke: #94a3b8; stroke-width: 2; rx: 18; }
+      .line { stroke: #475569; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <text x="40" y="50" class="title">System Architecture Diagram</text>
+  <rect x="50" y="120" width="220" height="90" class="accent"/>
+  <text x="90" y="165" class="label">User / Vendor / Admin</text>
+
+  <rect x="360" y="95" width="250" height="140" class="box"/>
+  <text x="430" y="145" class="label">React + Vite Frontend</text>
+  <text x="425" y="180" class="small">Routing, UI, Redux, forms</text>
+
+  <rect x="700" y="95" width="250" height="140" class="box"/>
+  <text x="758" y="145" class="label">Express Backend API</text>
+  <text x="775" y="180" class="small">Auth, bookings, roles</text>
+
+  <rect x="980" y="50" width="170" height="70" class="service"/>
+  <text x="1034" y="92" class="label">MongoDB</text>
+  <rect x="980" y="140" width="170" height="70" class="service"/>
+  <text x="1024" y="182" class="label">Cloudinary</text>
+  <rect x="980" y="230" width="170" height="70" class="service"/>
+  <text x="1038" y="272" class="label">Firebase</text>
+  <rect x="980" y="320" width="170" height="70" class="service"/>
+  <text x="1038" y="362" class="label">Razorpay</text>
+  <rect x="980" y="410" width="170" height="70" class="service"/>
+  <text x="1020" y="452" class="label">Nodemailer</text>
+
+  <rect x="360" y="300" width="250" height="120" class="service"/>
+  <text x="420" y="350" class="label">Redux Toolkit Store</text>
+  <text x="427" y="383" class="small">Session and app state</text>
+
+  <path d="M 270 165 L 360 165" class="line"/>
+  <path d="M 610 165 L 700 165" class="line"/>
+  <path d="M 485 235 L 485 300" class="line"/>
+  <path d="M 950 85 L 980 85" class="line"/>
+  <path d="M 950 175 L 980 175" class="line"/>
+  <path d="M 950 265 L 980 265" class="line"/>
+  <path d="M 950 355 L 980 355" class="line"/>
+  <path d="M 950 445 L 980 445" class="line"/>
+</svg>

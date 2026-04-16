@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="520" viewBox="0 0 980 520">
+  <defs>
+    <style>
+      .title { font: 700 24px Arial, sans-serif; fill: #0f172a; }
+      .label { font: 600 13px Arial, sans-serif; fill: #0f172a; }
+      .pill { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+      .decision { fill: #fff7ed; stroke: #fb923c; stroke-width: 2; }
+      .line { stroke: #64748b; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .small { font: 600 12px Arial, sans-serif; fill: #475569; }
+    </style>
+  </defs>
+
+  <text x="30" y="38" class="title">Login and Authentication Flow</text>
+
+  <rect x="70" y="90" rx="28" ry="28" width="180" height="56" class="pill"/>
+  <text x="120" y="124" class="label">Login Form</text>
+
+  <rect x="70" y="190" rx="28" ry="28" width="180" height="56" class="pill"/>
+  <text x="88" y="224" class="label">Frontend API Request</text>
+
+  <rect x="70" y="290" rx="28" ry="28" width="180" height="56" class="pill"/>
+  <text x="84" y="324" class="label">Verify User in MongoDB</text>
+
+  <polygon points="420,210 500,270 420,330 340,270" class="decision"/>
+  <text x="392" y="275" class="label">Valid?</text>
+
+  <rect x="600" y="110" rx="28" ry="28" width="220" height="56" class="pill"/>
+  <text x="636" y="144" class="label">Create Access + Refresh</text>
+
+  <rect x="600" y="210" rx="28" ry="28" width="220" height="56" class="pill"/>
+  <text x="643" y="244" class="label">Store Refresh Token</text>
+
+  <rect x="600" y="310" rx="28" ry="28" width="220" height="56" class="pill"/>
+  <text x="646" y="344" class="label">Return User Payload</text>
+
+  <rect x="70" y="400" rx="28" ry="28" width="180" height="56" class="pill"/>
+  <text x="116" y="434" class="label">Auth Error</text>
+
+  <rect x="860" y="140" rx="28" ry="28" width="90" height="48" class="pill"/>
+  <text x="885" y="169" class="small">User</text>
+  <rect x="860" y="225" rx="28" ry="28" width="90" height="48" class="pill"/>
+  <text x="874" y="254" class="small">Vendor</text>
+  <rect x="860" y="310" rx="28" ry="28" width="90" height="48" class="pill"/>
+  <text x="878" y="339" class="small">Admin</text>
+
+  <path d="M 160 146 C 160 160, 160 175, 160 190" class="line"/>
+  <path d="M 160 246 C 160 260, 160 275, 160 290" class="line"/>
+  <path d="M 250 318 C 290 318, 305 318, 352 292" class="line"/>
+  <path d="M 420 330 C 420 365, 310 410, 250 428" class="line"/>
+  <path d="M 500 270 C 545 270, 555 160, 600 138" class="line"/>
+  <path d="M 710 166 C 710 185, 710 190, 710 210" class="line"/>
+  <path d="M 710 266 C 710 285, 710 290, 710 310" class="line"/>
+  <path d="M 820 338 C 840 338, 845 338, 860 334" class="line"/>
+  <path d="M 820 338 C 845 338, 850 248, 860 249" class="line"/>
+  <path d="M 820 338 C 845 338, 850 162, 860 164" class="line"/>
+</svg>
