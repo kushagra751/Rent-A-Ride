@@ -174,7 +174,9 @@ function SignIn() {
                   <Link to={`/signup`}>Sign Up</Link>
                 </span>
               </p>
-              <p className="text-[10px] pl-2 text-blue-600">forgot password</p>
+              <Link to="/adminSignin" className="text-[10px] pl-2 text-blue-600">
+                admin login
+              </Link>
             </div>
 
             <p className="text-[10px] text-red-600">

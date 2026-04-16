@@ -1,5 +1,5 @@
 import express from "express"
-import { adminAuth ,adminProfiile } from "../controllers/adminControllers/adminController.js"
+import { adminAuth ,adminProfiile, adminSignIn } from "../controllers/adminControllers/adminController.js"
 import { signIn } from "../controllers/authController.js"
 import { signOut  } from "../controllers/userControllers/userController.js"
 import { addProduct, deleteVehicle, editVehicle, getAdminSummary, showUsers, showVendors, showVehicles } from "../controllers/adminControllers/dashboardController.js"
@@ -17,6 +17,7 @@ import { ensureLocalSeed } from "../utils/localSeed.js"
 
 const router = express.Router()
 
+router.post('/login',adminSignIn)
 router.post('/dashboard',signIn,adminAuth)
 router.post('/profile',adminProfiile)
 router.get('/signout',signOut)

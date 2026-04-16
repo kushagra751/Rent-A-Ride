@@ -4,28 +4,65 @@ import {
   setScreenSize,
   showSidebarOrNot,
   toggleSidebar,
+  toggleNavbarPage,
 } from "../../../redux/adminSlices/adminDashboardSlice/DashboardSlice";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BsChatLeft } from "react-icons/bs";
 import { RiNotification3Line } from "react-icons/ri";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
-import {  Chat, Notification, UserProfile } from ".";
-import profiile from "../../../Assets/profile dummy image.png";
-import { useEffect } from "react";
+import { Chat, Notification, UserProfile } from ".";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+import { signOut } from "../../../redux/user/userSlice";
+import { getApiUrl } from "../../../utils/api";
+
+const NavButton = ({ title, customFunc, icon, color, dotColor, showDot = true }) => (
+  <TooltipComponent content={title} position={"BottomCenter"}>
+    <button
+      type="button"
+      onClick={customFunc}
+      style={{ color }}
+      className="relative rounded-2xl border border-slate-200 bg-white p-3 text-xl shadow-sm transition hover:border-slate-900 hover:bg-slate-50"
+    >
+      {showDot ? (
+        <span
+          style={{ background: dotColor }}
+          className="absolute inline-flex rounded-full right-[10px] top-[10px] h-2.5 w-2.5"
+        ></span>
+      ) : null}
+      {icon}
+    </button>
+  </TooltipComponent>
+);
+
+NavButton.propTypes = {
+  title: PropTypes.string.isRequired,
+  customFunc: PropTypes.func.isRequired,
+  icon: PropTypes.node,
+  color: PropTypes.string,
+  dotColor: PropTypes.string,
+  showDot: PropTypes.bool,
+};
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const {  chat, notification, userProfile, screenSize } = useSelector(
+  const navigate = useNavigate();
+  const { chat, notification, userProfile, screenSize } = useSelector(
     (state) => state.adminDashboardSlice
   );
+  const { currentUser } = useSelector((state) => state.user);
+  const [summary, setSummary] = useState({
+    stats: {},
+    recentBookings: [],
+    recentVendorRequests: [],
+  });
 
   useEffect(() => {
     const handleResize = () => dispatch(setScreenSize(window.innerWidth));
 
     window.addEventListener("resize", handleResize);
-
     handleResize();
 
     return () => window.removeEventListener("resize", handleResize);
@@ -39,80 +76,125 @@ const Navbar = () => {
     }
   }, [dispatch, screenSize]);
 
-  const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
-    <TooltipComponent content={title} position={"BottomCenter"}>
-      <button
-        type="button"
-        onClick={customFunc}
-        style={{ color, dotColor }}
-        className="relative text-xl p-3  hover:bg-gray-100  rounded-full mb-2"
-      >
-        <span
-          style={{ background: dotColor }}
-          className="absolute inline-flex rounded-full right-[8px] top-2  h-2 w-2"
-        ></span>
-        {icon}
-      </button>
-    </TooltipComponent>
-  );
+  useEffect(() => {
+    const fetchSummary = async () => {
+      try {
+        const res = await fetch(getApiUrl("/api/admin/summary"));
+        if (!res.ok) {
+          return;
+        }
 
-  NavButton.propTypes = {
-    title: PropTypes.string.isRequired,
-    customFunc: PropTypes.func.isRequired,
-    icon: PropTypes.node, // assuming icon can be any renderable component
-    color: PropTypes.string,
-    dotColor: PropTypes.string,
+        const data = await res.json();
+        setSummary({
+          stats: data?.stats || {},
+          recentBookings: Array.isArray(data?.recentBookings) ? data.recentBookings : [],
+          recentVendorRequests: Array.isArray(data?.recentVendorRequests)
+            ? data.recentVendorRequests
+            : [],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchSummary();
+  }, []);
+
+  const handleAdminSignOut = async () => {
+    try {
+      await fetch(getApiUrl("/api/admin/signout"), {
+        method: "GET",
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      dispatch(signOut());
+      dispatch(toggleNavbarPage("userProfile"));
+      navigate("/adminSignin");
+    }
   };
 
+  const pendingNotifications =
+    Number(summary?.stats?.pendingVendorRequests || 0) +
+    Number(summary?.recentBookings?.length || 0);
+
   return (
-    <div className="flex justify-between p-2 md:mx-6 relative">
-      <div>
+    <div className="relative flex items-center justify-between gap-4 border-b border-slate-200 bg-white px-2 py-3 md:mx-6">
+      <div className="flex items-center gap-3">
         <NavButton
           title="Menu"
           customFunc={() => dispatch(toggleSidebar())}
-          color={"blue"}
+          color="#0f172a"
+          showDot={false}
           icon={<AiOutlineMenu />}
         />
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">
+            Admin Panel
+          </p>
+          <p className="text-lg font-bold text-slate-900">Operations</p>
+        </div>
       </div>
 
-      <div className="flex justify-between">
-       
-
+      <div className="flex items-center gap-3">
         <NavButton
-          title="Chat"
+          title="Quick tools"
           customFunc={() => dispatch(openPages("chat"))}
-          color={"blue"}
-          dotColor={"cyan"}
+          color="#0f172a"
+          dotColor="#22c55e"
           icon={<BsChatLeft />}
         />
 
         <NavButton
-          title="Notification"
+          title="Notifications"
           customFunc={() => dispatch(openPages("notification"))}
-          color={"blue"}
-          dotColor={"gold"}
+          color="#0f172a"
+          dotColor="#f59e0b"
+          showDot={pendingNotifications > 0}
           icon={<RiNotification3Line />}
         />
+
         <TooltipComponent content="profile" position="BottomCenter">
-          <div
-            className="flex items-center gap-2 cursor-pointer p-1 hover:bg-gray-100 rounded-lg mt-2"
+          <button
+            className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-3 py-2 shadow-sm transition hover:border-slate-900 hover:bg-slate-50"
             onClick={() => dispatch(openPages("userProfile"))}
+            type="button"
           >
-            <img src={profiile} alt="" className="w-4 h-4 rounded-full " />
-            <p>
-              <span className="text-[12px] text-gray-400">Hi,</span>{" "}
-              <span className="text-gray-400 font-semi-bold  text-[12px]">
-                Jeevan
-              </span>
-            </p>
-            <MdKeyboardArrowDown />
-          </div>
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-950 text-sm font-bold text-white">
+              {(currentUser?.username || currentUser?.email || "A").slice(0, 1).toUpperCase()}
+            </div>
+            <div className="hidden text-left sm:block">
+              <p className="text-[11px] uppercase tracking-[0.18em] text-slate-400">
+                Signed in
+              </p>
+              <p className="text-sm font-semibold text-slate-900">
+                {currentUser?.username || "Admin"}
+              </p>
+            </div>
+            <MdKeyboardArrowDown className="text-slate-500" />
+          </button>
         </TooltipComponent>
 
-        
-        {chat && <div className="relative top-9 right-0"><Chat /></div>}
-        {notification && <div className="relative top-9 right-0"><Notification /></div>}
-        {userProfile && <div className="relative top-9 right-0"><UserProfile /></div>}
+        {chat ? (
+          <Chat
+            onAddVehicle={() => navigate("/adminDashboard/addProducts")}
+            onOpenBookings={() => navigate("/adminDashboard/orders")}
+            onOpenRequests={() => navigate("/adminDashboard/vendorVehicleRequests")}
+          />
+        ) : null}
+        {notification ? <Notification summary={summary} /> : null}
+        {userProfile ? (
+          <UserProfile
+            currentUser={currentUser}
+            onOpenDashboard={() => {
+              dispatch(toggleNavbarPage("userProfile"));
+              navigate("/adminDashboard");
+            }}
+            onSignout={handleAdminSignOut}
+          />
+        ) : null}
       </div>
     </div>
   );

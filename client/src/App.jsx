@@ -19,6 +19,7 @@ import VendorDashboard from "./pages/vendor/Dashboard/VendorDashboard";
 import Layout from "./pages/admin/layouts/Layout";
 // import AddProductForm from "./pages/admin/dashboard/AddProductForm";
 import AdminDashNew from "./pages/admin/dashboard/AdminDashNew";
+import AdminSignin from "./pages/admin/pages/AdminSignin";
 import VehicleDetails from "./pages/user/VehicleDetails";
 import EditProductComponent from "./pages/admin/components/EditProductComponent";
 import Orders from "./pages/user/Orders";
@@ -54,6 +55,7 @@ function App() {
             <Route element={<PrivateSignin />}>
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
+              <Route path="/adminSignin" element={<AdminSignin />} />
             </Route>
             <Route element={<VendorAuthGate />}>
               <Route path="/vendorSignin" element={<VendorSignin />} />
