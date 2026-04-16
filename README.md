@@ -145,6 +145,10 @@ flowchart LR
     B --> E["Nodemailer"]
 ```
 
+More editable diagrams:
+
+- [docs/PROJECT_DIAGRAMS.md](./docs/PROJECT_DIAGRAMS.md)
+
 ## Installation
 
 ### 1. Clone the repository
