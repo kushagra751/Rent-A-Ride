@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="c" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#22c55e"/>
+      <stop offset="1" stop-color="#16a34a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#g)"/>
+  <text x="70" y="120" fill="#e5e7eb" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700">
+    Skoda
+  </text>
+  <text x="70" y="170" fill="#94a3b8" font-family="Arial, Helvetica, sans-serif" font-size="24">
+    Demo image (local)
+  </text>
+  <g transform="translate(140,290)">
+    <path d="M120 140c0-28 22-50 50-50h520c19 0 37-9 48-24l60-84c10-14 26-22 43-22h104c19 0 36 12 43 30l38 104c4 12 7 24 7 36v34c0 22-18 40-40 40H160c-22 0-40-18-40-40v-30z" fill="url(#c)"/>
+    <circle cx="280" cy="190" r="42" fill="#0b1220"/>
+    <circle cx="280" cy="190" r="22" fill="#94a3b8"/>
+    <circle cx="780" cy="190" r="42" fill="#0b1220"/>
+    <circle cx="780" cy="190" r="22" fill="#94a3b8"/>
+  </g>
+</svg>

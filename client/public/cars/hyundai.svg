@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180">
+  <rect width="320" height="180" rx="24" fill="#eef5ff"/>
+  <rect x="18" y="18" width="284" height="144" rx="20" fill="#0f4c81"/>
+  <path d="M78 104c16-28 38-42 78-42h30c23 0 42 10 60 31l16 19H58l20-8z" fill="#ffffff"/>
+  <circle cx="104" cy="122" r="15" fill="#0f4c81"/><circle cx="230" cy="122" r="15" fill="#0f4c81"/>
+  <text x="160" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#ffffff">HYUNDAI</text>
+</svg>

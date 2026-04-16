@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180">
+  <rect width="320" height="180" rx="24" fill="#fff1f2"/>
+  <rect x="18" y="18" width="284" height="144" rx="20" fill="#9d1720"/>
+  <path d="M60 111l24-26c17-19 36-31 68-31h34c30 0 51 15 69 38l7 19H60z" fill="#fff9f9"/>
+  <circle cx="101" cy="122" r="15" fill="#9d1720"/><circle cx="229" cy="122" r="15" fill="#9d1720"/>
+  <text x="160" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#ffffff">KIA</text>
+</svg>

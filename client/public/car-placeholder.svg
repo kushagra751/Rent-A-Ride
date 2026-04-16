@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#1f2937"/>
+    </linearGradient>
+    <linearGradient id="car" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#22c55e"/>
+      <stop offset="1" stop-color="#16a34a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <g opacity="0.15">
+    <circle cx="180" cy="120" r="80" fill="#ffffff"/>
+    <circle cx="1040" cy="170" r="120" fill="#ffffff"/>
+  </g>
+  <g transform="translate(150,290)">
+    <path d="M120 140c0-28 22-50 50-50h520c19 0 37-9 48-24l60-84c10-14 26-22 43-22h104c19 0 36 12 43 30l38 104c4 12 7 24 7 36v34c0 22-18 40-40 40H160c-22 0-40-18-40-40v-30z" fill="url(#car)"/>
+    <rect x="230" y="30" width="220" height="70" rx="12" fill="#0b1220" opacity="0.65"/>
+    <rect x="470" y="30" width="200" height="70" rx="12" fill="#0b1220" opacity="0.65"/>
+    <circle cx="280" cy="190" r="42" fill="#0b1220"/>
+    <circle cx="280" cy="190" r="22" fill="#94a3b8"/>
+    <circle cx="780" cy="190" r="42" fill="#0b1220"/>
+    <circle cx="780" cy="190" r="22" fill="#94a3b8"/>
+    <rect x="150" y="128" width="740" height="18" rx="9" fill="#052e16" opacity="0.65"/>
+  </g>
+  <text x="60" y="610" fill="#e2e8f0" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700">
+    Rent-a-Ride " Local Demo Asset
+  </text>
+</svg>

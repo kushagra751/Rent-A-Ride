@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180">
+  <rect width="320" height="180" rx="24" fill="#eef3fb"/>
+  <rect x="18" y="18" width="284" height="144" rx="20" fill="#1e4e8c"/>
+  <path d="M62 111l24-28c17-20 35-29 60-29h29c28 0 50 12 68 37l9 20H62z" fill="#f5fbff"/>
+  <circle cx="106" cy="122" r="15" fill="#1e4e8c"/><circle cx="226" cy="122" r="15" fill="#1e4e8c"/>
+  <text x="160" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#ffffff">TATA</text>
+</svg>
