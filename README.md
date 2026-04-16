@@ -1,140 +1,406 @@
+# Rent-A-Ride
 
-# Rent a Ride
+![React](https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61dafb?logo=react&logoColor=white)
+![Node.js](https://img.shields.io/badge/Backend-Node.js%20%2B%20Express-339933?logo=node.js&logoColor=white)
+![MongoDB](https://img.shields.io/badge/Database-MongoDB-47A248?logo=mongodb&logoColor=white)
+![Redux](https://img.shields.io/badge/State-Redux%20Toolkit-764abc?logo=redux&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/UI-Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=white)
+![Deployment](https://img.shields.io/badge/Deploy-Vercel%20%2B%20Render-black)
 
-This repository contains the code for a Full stack car rental website with 3 modules User,Admin,Vendor . The project is divided into Client  and  backend 
+Rent-A-Ride is a full-stack car rental platform with three main roles:
+
+- User
+- Vendor
+- Admin
+
+The project includes a Vite + React frontend, an Express + MongoDB backend, role-based authentication, vehicle management, booking flows, vendor approvals, and an admin operations panel.
+
+## Feature Highlights
+
+- Multi-role platform with separate User, Vendor, and Admin flows
+- Dedicated admin panel with live dashboard, booking control, and vendor approval queue
+- Vehicle discovery with search, filter, sort, and location-based browsing
+- Vendor vehicle management with add, edit, delete, and booking updates
+- Booking lifecycle management across user, vendor, and admin panels
+- Firebase Google login support
+- Razorpay payment integration flow
+- Cloudinary image upload support
+- Production-ready split deployment setup for frontend and backend
+
+## Modules
+
+### User
+- Sign up and sign in with email/password
+- Google login support through Firebase
+- Browse vehicles
+- Search by district and location
+- Filter and sort vehicle listings
+- View vehicle details
+- Book rides and complete checkout flow
+- View and manage personal orders
+- Edit profile details
+
+### Vendor
+- Separate vendor sign up and sign in
+- Add vehicles
+- Edit and delete vendor vehicles
+- View bookings
+- Manage booking status
+- Monitor available vehicles and requests from vendor dashboard
+
+### Admin
+- Separate admin sign in page
+- View live dashboard summary
+- View all users
+- View all vendors
+- View all vehicles
+- Add and manage vehicles
+- Review vendor vehicle requests
+- View and update booking statuses
+
+## Tech Stack
+
+### Frontend
+- React 18
+- Vite
+- Redux Toolkit
+- Redux Persist
+- React Router DOM
+- Tailwind CSS
+- Material UI
+- React Hook Form
+- Zod
+- React Hot Toast
+- React Icons
+- Firebase Auth
+
+### Backend
+- Node.js
+- Express
+- MongoDB with Mongoose
+- JWT authentication
+- Multer
+- Cloudinary
+- Nodemailer
+- Razorpay
+
+## Folder Structure
+
+```text
+Rent-a-Ride/
+├── backend/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── utils/
+│   └── server.js
+├── client/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── redux/
+│   │   └── utils/
+│   └── vite.config.js
+├── DEPLOYMENT.md
+├── render.yaml
+└── package.json
+```
+
+## Architecture Diagram
+
+```mermaid
+flowchart LR
+    U["User / Vendor / Admin"] --> F["React + Vite Frontend"]
+    F --> R["Redux Toolkit State"]
+    F --> B["Express API Backend"]
+    B --> M["MongoDB Atlas / MongoDB"]
+    B --> C["Cloudinary"]
+    B --> G["Firebase Auth"]
+    B --> P["Razorpay"]
+    B --> E["Nodemailer"]
+```
+
+## Key Features
+
+- Role-based access for user, vendor, and admin
+- JWT access token and refresh token support
+- Dedicated admin sign-in flow
+- Protected routes for all secure areas
+- Vendor approval workflow
+- Admin dashboard with live production data
+- Booking status management
+- Cloudinary image upload integration
+- Razorpay payment flow support
+- Firebase Google authentication support
+- Production-ready deployment setup for Render + Vercel
+
+## Local Development
+
+## Prerequisites
+
+- Node.js
+- npm
+- MongoDB local instance or MongoDB Atlas
+- Cloudinary account for image upload
+- Firebase project for Google login
+- Razorpay account for payment integration
+
+## Install Dependencies
+
+### Backend
+
+From the project root:
+
+```bash
+npm install
+```
+
+### Frontend
+
+```bash
+cd client
+npm install
+```
+
+## Run Locally
+
+### Start backend
+
+From project root:
+
+```bash
+npm run dev
+```
+
+Backend runs on:
+
+```text
+http://localhost:3001
+```
+
+### Start frontend
+
+In a separate terminal:
+
+```bash
+cd client
+npm run dev
+```
+
+Frontend usually runs on:
+
+```text
+http://localhost:5173
+```
+
+## Environment Variables
+
+Use:
+
+- [.env.example](./.env.example)
+- [client/.env.example](./client/.env.example)
+
+### Backend variables
+
+Typical backend variables:
+
+```env
+NODE_ENV=
+PORT=
+mongo_uri=
+ACCESS_TOKEN=
+REFRESH_TOKEN=
+FRONTEND_URL=
+FRONTEND_APP_URL=
+CLOUD_NAME=
+API_KEY=
+API_SECRET=
+EMAIL_HOST=
+EMAIL_PASSWORD=
+RAZORPAY_KEY_ID=
+RAZORPAY_SECRET=
+COOKIE_DOMAIN=
+```
+
+### Frontend variables
+
+Typical frontend variables:
+
+```env
+VITE_PRODUCTION_BACKEND_URL=
+VITE_RAZORPAY_KEY_ID=
+VITE_FIREBASE_API_KEY=
+VITE_FIREBASE_AUTH_DOMAIN=
+VITE_FIREBASE_PROJECT_ID=
+VITE_FIREBASE_STORAGE_BUCKET=
+VITE_FIREBASE_MESSAGING_SENDER_ID=
+VITE_FIREBASE_APP_ID=
+```
+
+## Default Demo Logins
+
+These are available through the current local/deployed bootstrap flow if seeded:
+
+### Admin
+- Email: `admin@demo.com`
+- Password: `admin123`
+
+### Vendor
+- Email: `vendor@demo.com`
+- Password: `vendor123`
+
+Note: in production, you should replace demo accounts and rotate all secrets before final use.
+
+## Important Routes
+
+### Public
+- `/`
+- `/vehicles`
+- `/enterprise`
+- `/contact`
+- `/signin`
+- `/signup`
+- `/vendorSignin`
+- `/vendorSignup`
+- `/adminSignin`
+
+### User protected
+- `/profile`
+- `/profile/orders`
+- `/vehicleDetails`
+- `/availableVehicles`
+- `/checkoutPage`
+- `/razorpay`
+
+### Vendor protected
+- `/vendorDashboard`
+
+### Admin protected
+- `/adminDashboard`
+- `/adminDashboard/allProduct`
+- `/adminDashboard/allUsers`
+- `/adminDashboard/allVendors`
+- `/adminDashboard/vendorVehicleRequests`
+- `/adminDashboard/orders`
+
+## API Areas
+
+### Auth
+- `/api/auth/signup`
+- `/api/auth/signin`
+- `/api/auth/google`
+- `/api/auth/refreshToken`
+
+### User
+- `/api/user/...`
+
+### Vendor
+- `/api/vendor/...`
+
+### Admin
+- `/api/admin/login`
+- `/api/admin/showVehicles`
+- `/api/admin/showUsers`
+- `/api/admin/showVendors`
+- `/api/admin/summary`
+- `/api/admin/allBookings`
+- `/api/admin/fetchVendorVehilceRequests`
 
 ## Deployment
 
-For an online deployment with no localhost dependencies, use the guide in [DEPLOYMENT.md](./DEPLOYMENT.md).
+Deployment guide:
 
+- [DEPLOYMENT.md](./DEPLOYMENT.md)
 
-## Installation
+Recommended deployment split:
 
-Clone Rent a Ride
+- Frontend: Vercel
+- Backend: Render
+- Database: MongoDB Atlas
 
-```bash
-https://github.com/Kushagra751/Rent-A-Ride
-
-```
-
-Install node modules
-
-```bash
-  cd backend
-  npm install
-  npm run dev
-```
-```bash
-  cd client
-  npm install
-  npm run dev
-```
-
-    
-## Tech Stack
-
-**Client:** React, Javascript, Redux Toolkit, Material Ui, TailwindCSS, React Toast 
-
-**Server:** Express.js, Mongodb, Cloudinary, Nodemailer , Multer
-
-**Deployed frontend and backend  On AWS ec2, Nginx as Reverse Proxy ,Cloudflare as Dns resolver ,Used Pm2 for uptime**
-
-
-## Project Description
-A full-scale Car Rental Platform with user, admin, and vendor modules, designed to offer seamless vehicle booking, management, and administration. The platform is developed using modern technologies to ensure smooth and efficient operations, catering to different user roles with distinct functionalities.
-
-##
-
-**Key Features & Modules:**
-
-**User Module:**
-
-* View and Book Vehicles: Users can view available vehicles and book them online.
-* Profile Management: Users can view and edit their profiles, as well as manage their account settings.
-* Order Management: View past and upcoming orders; users can only access their own bookings.
-* Account Management: Users can sign up, sign in, delete their account, and sign out seamlessly.
-* Email Notifications: After booking a vehicle, users receive an email with order details.
-
-**Admin Module:**
-
-* Booking Management: Admins can view and manage bookings, including booking details and statuses.
-
-* Vendor Management: View and approve/reject vendors, as well as remove vendors from the platform.
-
-* Vehicle Management: Admins can view, update, and delete vehicle listings.
-
-* User Management: Admins have the ability to remove users from the platform.
-
-**Vendor Module:**
-
-* Sign Up and Sign In: Separate sign-up and sign-in flow for vendors.
-
-* Vehicle Listing: Vendors can add their vehicles to the platform for approval by the admin. Approved vehicles will be listed on the site.
-
-* Order Notifications: Vendors receive updates on orders when users book their vehicles.
-
-##
-
-**Technology Stack:**
-
-**Frontend:** React.js (with Vite), Redux Toolkit, Tailwind CSS, React Hook Form, Zod for form validation, Google OAuth, Razorpay for payment processing.
-
-**Backend:** Node.js, Express.js, MongoDB, Multer for handling multipart form data, Nodemailer for sending emails, Cloudinary for media storage, MVC architecture, JWT with access and refresh tokens, Protected routes, Role-based access control.
-
-**Database:** MongoDB with aggregation pipelines, referencing models, and optimized storage solutions.
-
-**Deployment:** Deployed on AWS EC2, utilizing Nginx as a reverse proxy, and Cloudflare for DNS management.
-
-##
-
-**Features & Implementations:**
-
-* JWT Authentication: Integrated JWT access and refresh tokens to secure user, admin, and vendor login flows.
-
-* Role-Based Access: Implemented protected routes and role-based access to restrict access based on user roles (Admin, User, Vendor).
-
-* Dynamic Location Selector: The location picker dynamically updates pickup and drop-off options based on user location selection.
-
-* Search, Sort, Filter Functionality: Enhanced search, filter, and sort capabilities for seamless vehicle browsing and booking.
-
-* UI Development: Built most of the UI from scratch, including dynamic form validations using Zod and React Hook Form.
-
-* Google OAuth: Integrated Google OAuth for quick and secure sign-up/sign-in functionality.
-
-* Email Notifications: Implemented automated email notifications for vehicle booking confirmations using Nodemailer.
-
-* Cloudinary Integration: Used Cloudinary to handle image and video storage, reducing the database load by optimizing media assets.
-
-* MongoDB: Used four main models to take advantage of MongoDB’s referencing functionality, improving data organization and retrieval efficiency.
-
-* Multer: Utilized Multer to handle file uploads for vehicles, including images and videos.
-
-* Version Control: Employed Git throughout the project for version control, collaboration, and backup.
 ## Screenshots
 
-//user
-<img width="1440" alt="Screenshot 2024-04-06 at 3 06 32 PM" src="https://github.com/user-attachments/assets/4b769f7d-5d2c-43a7-8283-07fa8402de92">
-<img width="1430" alt="Screenshot 2024-12-10 at 12 35 41 AM" src="https://github.com/user-attachments/assets/5d6e0160-5f1d-4e67-a64e-1e18fb17a590">
-<img width="1425" alt="Screenshot 2024-12-10 at 12 35 58 AM" src="https://github.com/user-attachments/assets/ac6b0f33-344e-4009-a979-23ea7dc3a5bb">
-<img width="1430" alt="Screenshot 2024-12-10 at 12 36 15 AM" src="https://github.com/user-attachments/assets/40e2dc7d-0694-483d-bf4a-badac9c4d5f3">
-<img width="1426" alt="Screenshot 2024-12-10 at 12 36 28 AM" src="https://github.com/user-attachments/assets/7ce5d1fa-c51f-414b-92da-cc04ac7c3402">
-<img width="1428" alt="Screenshot 2024-12-10 at 1 59 45 AM" src="https://github.com/user-attachments/assets/0e87009c-832d-4c5e-be7c-ecd4df341070">
-<img width="1408" alt="Screenshot 2024-12-10 at 2 00 01 AM" src="https://github.com/user-attachments/assets/baf15b5d-2e04-4410-803b-527dddda1aab">
+Add your best project screenshots here to make the repository look stronger for portfolio and review purposes.
 
+Suggested sections:
 
-//Admin
-<img width="1418" alt="Screenshot 2024-12-10 at 2 01 09 AM" src="https://github.com/user-attachments/assets/c08e3bf0-2776-4236-80b6-6714d52ec8d7">
-<img width="1421" alt="Screenshot 2024-12-10 at 2 04 29 AM" src="https://github.com/user-attachments/assets/ce6dada8-41b7-4aec-b86a-4a359f6d339f">
-<img width="1431" alt="Screenshot 2024-12-10 at 2 04 42 AM" src="https://github.com/user-attachments/assets/467503a4-ab9a-4396-bc57-1abff5fe8106">
-<img width="1418" alt="Screenshot 2024-12-10 at 2 05 02 AM" src="https://github.com/user-attachments/assets/8e1d2948-6316-420b-8336-30ec7c752b04">
+- User home page
+- Vehicle listing and filters
+- Vehicle details page
+- Checkout / payment page
+- User orders page
+- Vendor dashboard
+- Vendor vehicles page
+- Admin dashboard
+- Admin bookings page
+- Admin vendor request page
 
+Example markdown:
 
-//vendor
-<img width="1418" alt="Screenshot 2024-12-10 at 2 05 02 AM" src="https://github.com/user-attachments/assets/59a9a9c7-5dc1-4f61-8d15-43266579386c">
-<img width="1432" alt="Screenshot 2024-12-10 at 2 08 00 AM" src="https://github.com/user-attachments/assets/4e9d8f66-0984-4163-8dea-f9023db56ce0">
+```md
+![User Home](./client/public/screenshots/user-home.png)
+![Vehicles](./client/public/screenshots/vehicles.png)
+![Admin Dashboard](./client/public/screenshots/admin-dashboard.png)
+```
 
+If you store screenshots in another folder, update the paths accordingly.
 
+## Build and Checks
 
+### Frontend build
 
+```bash
+cd client
+npm run build
+```
 
+### Frontend lint
 
+```bash
+cd client
+npm run lint
+```
+
+### Backend start
+
+```bash
+npm start
+```
+
+## Health Check
+
+Backend health endpoint:
+
+```text
+/health
+```
+
+Example:
+
+```text
+http://localhost:3001/health
+```
+
+It reports whether MongoDB is connected.
+
+## Current Project Status
+
+This repository currently includes:
+
+- user side working
+- vendor side working
+- admin side working
+- separate admin login page
+- deployed-data fixes for admin/vendor/user flows
+- improved admin UI for dashboard and add vehicle flow
+
+## Notes
+
+- Some legacy admin template dependencies and styles are still present in the client.
+- Production build may still show warnings about older CSS references and large bundle size, but the app builds successfully.
+- If localhost shows a blank page, restart the frontend after the latest changes so Vite picks up the updated files.
+
+## Author
+
+Kushagra
