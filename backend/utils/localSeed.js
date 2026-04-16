@@ -335,75 +335,80 @@ export async function ensureLocalSeed() {
   const isProduction = process.env.NODE_ENV === "production";
   const existingVehicleCount = await Vehicle.countDocuments();
   const existingMasterDataCount = await MasterData.countDocuments();
+  const shouldSkipFleetSeed =
+    isProduction && existingVehicleCount > 0 && existingMasterDataCount > 0;
 
-  if (isProduction && existingVehicleCount > 0 && existingMasterDataCount > 0) {
-    return { seeded: false };
+  let locations = vadodaraLocations;
+  let targetAdminFleet = [];
+
+  if (!shouldSkipFleetSeed) {
+    locations = await ensureVadodaraMasterData();
+    targetAdminFleet = demoVehiclesFromLocations(locations);
   }
-
-  const locations = await ensureVadodaraMasterData();
-  const targetAdminFleet = demoVehiclesFromLocations(locations);
 
   const userCount = await User.countDocuments({ isVendor: true });
 
-  if (existingVehicleCount === 0) {
-    await Vehicle.insertMany(targetAdminFleet);
-    seeded = true;
-  } else {
-    const adminVehicles = await Vehicle.find({ addedBy: "admin" }).lean();
-    if (adminVehicles.length > 0 && looksLikeLegacyVehicleSeed(adminVehicles)) {
-      await Vehicle.deleteMany({ addedBy: "admin" });
+  if (!shouldSkipFleetSeed) {
+    if (existingVehicleCount === 0) {
       await Vehicle.insertMany(targetAdminFleet);
       seeded = true;
     } else {
-      const districtCoverage = new Set(adminVehicles.map((vehicle) => vehicle.district));
-      const allDistrictsCovered = ["Vadodara", "Ahmedabad", "Surat", "Anand"].every(
-        (district) => districtCoverage.has(district)
-      );
-      const existingRegistrations = new Set(
-        adminVehicles.map((vehicle) => vehicle.registeration_number)
-      );
-      const missingVehicles = targetAdminFleet.filter(
-        (vehicle) => !existingRegistrations.has(vehicle.registeration_number)
-      );
+      const adminVehicles = await Vehicle.find({ addedBy: "admin" }).lean();
+      if (adminVehicles.length > 0 && looksLikeLegacyVehicleSeed(adminVehicles)) {
+        await Vehicle.deleteMany({ addedBy: "admin" });
+        await Vehicle.insertMany(targetAdminFleet);
+        seeded = true;
+      } else {
+        const districtCoverage = new Set(adminVehicles.map((vehicle) => vehicle.district));
+        const allDistrictsCovered = ["Vadodara", "Ahmedabad", "Surat", "Anand"].every(
+          (district) => districtCoverage.has(district)
+        );
+        const existingRegistrations = new Set(
+          adminVehicles.map((vehicle) => vehicle.registeration_number)
+        );
+        const missingVehicles = targetAdminFleet.filter(
+          (vehicle) => !existingRegistrations.has(vehicle.registeration_number)
+        );
 
-      if (!allDistrictsCovered || adminVehicles.length < targetAdminFleet.length) {
-        if (missingVehicles.length > 0) {
-          await Vehicle.insertMany(missingVehicles);
-          seeded = true;
+        if (!allDistrictsCovered || adminVehicles.length < targetAdminFleet.length) {
+          if (missingVehicles.length > 0) {
+            await Vehicle.insertMany(missingVehicles);
+            seeded = true;
+          }
         }
       }
     }
-  }
 
-  await Vehicle.updateMany(
-    {
-      $or: [{ image: { $size: 0 } }, { image: { $elemMatch: { $regex: "car-placeholder\\.svg" } } }],
-    },
-    [
+    await Vehicle.updateMany(
       {
-        $set: {
-          image: [
-            {
-              $switch: {
-                branches: [
-                  { case: { $regexMatch: { input: { $toLower: "$company" }, regex: "maruti|maruthi" } }, then: "/cars/maruthi.svg" },
-                  { case: { $regexMatch: { input: { $toLower: "$company" }, regex: "hyundai" } }, then: "/cars/hyundai.svg" },
-                  { case: { $regexMatch: { input: { $toLower: "$company" }, regex: "tata" } }, then: "/cars/tata.svg" },
-                  { case: { $regexMatch: { input: { $toLower: "$company" }, regex: "mahindra" } }, then: "/cars/mahindra.svg" },
-                  { case: { $regexMatch: { input: { $toLower: "$company" }, regex: "kia" } }, then: "/cars/kia.svg" },
-                  { case: { $regexMatch: { input: { $toLower: "$company" }, regex: "toyota" } }, then: "/cars/toyota.svg" },
-                  { case: { $regexMatch: { input: { $toLower: "$company" }, regex: "honda" } }, then: "/cars/honda.svg" },
-                  { case: { $regexMatch: { input: { $toLower: "$company" }, regex: "skoda" } }, then: "/cars/skoda.svg" },
-                  { case: { $regexMatch: { input: { $toLower: "$company" }, regex: "volkswagen|\\bvw\\b" } }, then: "/cars/volkswagen.svg" },
-                ],
-                default: "/car-placeholder.svg",
-              },
-            },
-          ],
-        },
+        $or: [{ image: { $size: 0 } }, { image: { $elemMatch: { $regex: "car-placeholder\\.svg" } } }],
       },
-    ]
-  );
+      [
+        {
+          $set: {
+            image: [
+              {
+                $switch: {
+                  branches: [
+                    { case: { $regexMatch: { input: { $toLower: "$company" }, regex: "maruti|maruthi" } }, then: "/cars/maruthi.svg" },
+                    { case: { $regexMatch: { input: { $toLower: "$company" }, regex: "hyundai" } }, then: "/cars/hyundai.svg" },
+                    { case: { $regexMatch: { input: { $toLower: "$company" }, regex: "tata" } }, then: "/cars/tata.svg" },
+                    { case: { $regexMatch: { input: { $toLower: "$company" }, regex: "mahindra" } }, then: "/cars/mahindra.svg" },
+                    { case: { $regexMatch: { input: { $toLower: "$company" }, regex: "kia" } }, then: "/cars/kia.svg" },
+                    { case: { $regexMatch: { input: { $toLower: "$company" }, regex: "toyota" } }, then: "/cars/toyota.svg" },
+                    { case: { $regexMatch: { input: { $toLower: "$company" }, regex: "honda" } }, then: "/cars/honda.svg" },
+                    { case: { $regexMatch: { input: { $toLower: "$company" }, regex: "skoda" } }, then: "/cars/skoda.svg" },
+                    { case: { $regexMatch: { input: { $toLower: "$company" }, regex: "volkswagen|\\bvw\\b" } }, then: "/cars/volkswagen.svg" },
+                  ],
+                  default: "/car-placeholder.svg",
+                },
+              },
+            ],
+          },
+        },
+      ]
+    );
+  }
 
   if (userCount === 0) {
     const hadshedPassword = bcryptjs.hashSync("vendor123", 10);
@@ -413,6 +418,20 @@ export async function ensureLocalSeed() {
       phoneNumber: "9999999999",
       password: hadshedPassword,
       isVendor: true,
+    });
+    seeded = true;
+  }
+
+  const adminCount = await User.countDocuments({ isAdmin: true });
+  if (adminCount === 0) {
+    const adminPassword = bcryptjs.hashSync("admin123", 10);
+    await User.create({
+      username: "admin",
+      email: "admin@demo.com",
+      phoneNumber: "8888888888",
+      password: adminPassword,
+      isUser: true,
+      isAdmin: true,
     });
     seeded = true;
   }

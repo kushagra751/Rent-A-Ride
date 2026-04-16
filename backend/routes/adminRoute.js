@@ -32,7 +32,12 @@ router.get('/getVehicleModels',getCarModelData)
 router.get('/seedLocal', async (req, res, next) => {
   try {
     const result = await ensureLocalSeed();
-    res.status(200).json({ ok: true, ...result, vendorLogin: { email: "vendor@demo.com", password: "vendor123" } });
+    res.status(200).json({
+      ok: true,
+      ...result,
+      vendorLogin: { email: "vendor@demo.com", password: "vendor123" },
+      adminLogin: { email: "admin@demo.com", password: "admin123" },
+    });
   } catch (error) {
     next(error);
   }
